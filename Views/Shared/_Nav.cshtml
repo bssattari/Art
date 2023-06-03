@@ -1,0 +1,32 @@
+@{
+	var action = ViewContext.RouteData.Values["action"]!.ToString();
+}
+
+<nav class="colorlib-nav" role="navigation">
+			<div class="top-menu">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-2">
+							<div id="colorlib-logo"><a href="index.html">Mitority</a></div>
+						</div>
+						<div class="col-xs-10 text-right menu-1">
+							<ul>
+								<li class='@(action=="Index" || action==""?"active" : "")'><a href="/">Ana Sayfa</a></li>
+								<li class='has-dropdown @(action=="Work"? "active" :"")'>
+									<a href="/work">Eserler</a>
+									<ul class="dropdown">
+										<li><a href="#">Tuval</a></li>
+										<li><a href="#">Grafiti</a></li>
+										<li><a href="#">Tattoo</a></li>
+									</ul>
+								</li>
+								<li class='@(action=="Event"?"active" : "")'><a href="/event">Sergi ve Etkinlikler</a></li>
+								<li class='@(action=="Blog" ?"active" : "")'><a href="/blog">Blog</a></li>
+								<li class='@(action=="About" ?"active" : "")'><a href="/about">Hakkimida</a></li>
+								<li class='@(action=="Contact"?"active" : "")'><a href="/contact">Iletisim</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
