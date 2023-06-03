@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Art.Models;
+using Art.Models.Entities;
 
 namespace Art.Controllers;
 
@@ -12,10 +13,12 @@ public class HomeController : Controller
     {
         _logger = logger;
     }
+    PmitLn2oqDb0001Context db = new PmitLn2oqDb0001Context();
 
     public IActionResult Index()
     {
-        return View();
+        var model = new IndexVeiewModel() { Site = db.Sites!.First() };
+        return View(model);
     }
 
     [Route("/contact")]
@@ -35,7 +38,7 @@ public class HomeController : Controller
         return View();
     }
     [Route("/bloge/{title}/{id}")]
-    public IActionResult blogDetail(string title , int id)
+    public IActionResult blogDetail(string title, int id)
     {
         return View();
     }
@@ -56,6 +59,17 @@ public class HomeController : Controller
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is HomeController controller &&
+               EqualityComparer<PmitLn2oqDb0001Context>.Default.Equals(db, controller.db);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(db);
     }
 }
 
