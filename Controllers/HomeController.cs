@@ -17,7 +17,8 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        var model = new IndexVeiewModel() { Site = db.Sites!.First() };
+        var model = new IndexVeiewModel() 
+        { Site = db.Sites!.First() };
         return View(model);
     }
 
