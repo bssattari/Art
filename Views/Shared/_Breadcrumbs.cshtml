@@ -1,11 +1,25 @@
-
+@{
+	var action = ViewContext.RouteData.Values["action"]!.ToString();
+}
     <aside id="colorlib-breadcrumbs">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 breadcrumbs text-center">
-                        <h2>@ViewData["Title"]</h2>
+                        <h2>@(ViewData["SubTitle"]!=null?ViewData["SubTitle"]:ViewData["Title"])</h2>
+                        <span><a href="/">Ana Sayfa</a></span> /
 
-                        <p><span><a href="/">Ana Sayfa</a></span> / <span>@ViewData["Title"]</span></p>
+                        @if (ViewData["SubTitle"]!=null)
+                        {
+                            <span><a href='@(action=="BlogDetail"?"/blog":action=="WorldDetail"?"/work":"/event")'>@ViewData["Title"]</a></span>
+                            @("/")
+                            <span>@ViewData["Subtitle"]</span>
+                          
+                        }else
+                        {
+                            <span>@ViewData["Title"]</span>
+
+                        }
+                        
                     </div>
                 </div>
             </div>

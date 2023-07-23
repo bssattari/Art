@@ -18,6 +18,12 @@ body {
   color: #666666;
   background: #fff; }
 
+.badge{
+float: right;
+background-color: #ff1381;
+
+}
+
 #page {
   position: relative;
   overflow-x: hidden;
@@ -177,7 +183,7 @@ h1, h2, h3, h4, h5, h6, figure {
         display: -moz-inline-stack;
         display: inline-block;
         zoom: 1;
-        *display: inline;
+        display: inline;
         -webkit-transition: 0.3s;
         -o-transition: 0.3s;
         transition: 0.3s;
@@ -644,7 +650,7 @@ blockquote {
   float: left;
   margin-bottom: 5em; }
   .side .form-group {
-    margin-bottom: 0;
+    margin-bottom: 5px;
     position: relative;
     width: 100%; }
     @media screen and (max-width: 480px) {
@@ -698,7 +704,12 @@ blockquote {
     padding: 0; }
     .side .category li {
       list-style: none;
-      font-size: 14px; }
+      font-size: 14px; 
+    padding:5px 10px;}
+
+      .side .category li.active {
+        background-color: #f0f0f0; }
+        
       .side .category li a {
         border-bottom: 1px solid #f0f0f0;
         display: block;
@@ -888,12 +899,12 @@ input[type="text"] {
     display: -moz-inline-stack;
     display: inline-block;
     zoom: 1;
-    *display: inline; }
+    display: inline; }
     .colorlib-social-icons li a {
       display: -moz-inline-stack;
       display: inline-block;
       zoom: 1;
-      *display: inline;
+      display: inline;
       color: #ff1381;
       padding-left: 10px;
       padding-right: 10px; }

@@ -1,0 +1,19 @@
+1)in kodra be file BlogDetail.cshtml varde kardim ta vagti comment neveshtim 
+ve save kardim dar yek jabeye sabz peyam dehed ke comment shomara daryaft kardim.
+
+@if (TempData["Success"] != null)
+					{
+						<div class="alert alert-success" role="alert">
+							@TempData["Success"]
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					}
+
+
+
+
+2)Model Validation In ASP.NET MVC Core 3.1
+Baraye gesmete Comment ha estefede kardim:
+https://www.c-sharpcorner.com/article/model-validation-in-asp-net-mvc-core-3-1/
