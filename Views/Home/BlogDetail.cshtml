@@ -3,8 +3,12 @@
 @{
 	ViewData["Title"] = "Blog";
 	ViewData["Subtitle"] = Model.Blog!.Title;
-}
 
+	String ip = ViewContext.HttpContext.Connection.RemoteIpAddress!.ToString();
+	
+	int like = Model.Likes!.Where(x => x.Type == "blog" && x.Typeid == Model.Blog.Id).Count();
+	bool isLike = Model.Likes!.FirstOrDefault(x => x.Ip == ip && x.Type == "blog" && x.Typeid == Model.Blog.Id) != null ? true:false;
+}
 @{
 	await Html.RenderPartialAsync("_Breadcrumbs");
 }
@@ -26,9 +30,10 @@
 							<div class="desc">
 								<p class="meta">
 									
-									<span class="date">@(String.Format("{0:dd MMM yyyy}", Model.Blog.Date))</span>
-									<span class="pos"><i class="icon-eye text-success"></i> @Model.Blog.Read </span>
-									<span class="pos"><i class="fa-sharp fa-solid fa-heart text-danger"></i>
+									<span class="date"> <i class="fa-solid fa-calendar-days"></i>@(String.Format("{0:dd MMM yyyy}", Model.Blog.Date))
+										</span>
+									<span class="pos"><i class="icon-eye text-success"> @Model.Blog.Read </i></span>
+									<span class="pos"><i class='fa-sharp fa-solid fa-heart @(isLike?"text-danger":"")' id="like" data-id="@Model.Blog.Id" data-type="blog"></i> <span id="likeCount">@like</span>
 										@Model.Blog.Like
 									</span>
 								</p>

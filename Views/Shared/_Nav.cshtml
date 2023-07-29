@@ -1,4 +1,4 @@
-@Model Art.Model.IndexViewModel
+@model Art.Models.IndexViewModel
 @{
 	var action = ViewContext.RouteData.Values["action"]!.ToString();
 	TempData["Url"] = ViewContext.HttpContext.Request.Path.ToString();

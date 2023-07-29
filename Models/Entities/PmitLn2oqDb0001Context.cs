@@ -15,9 +15,13 @@ public partial class PmitLn2oqDb0001Context : DbContext
     {
     }
 
+    public virtual DbSet<About> Abouts { get; set; }
+
     public virtual DbSet<Blog> Blogs { get; set; }
 
     public virtual DbSet<Comment> Comments { get; set; }
+
+    public virtual DbSet<Contactfomr> Contactfomrs { get; set; }
 
     public virtual DbSet<Event> Events { get; set; }
 
@@ -42,6 +46,21 @@ public partial class PmitLn2oqDb0001Context : DbContext
         modelBuilder
             .UseCollation("utf8_general_ci")
             .HasCharSet("utf8");
+
+        modelBuilder.Entity<About>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("about");
+
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
+            entity.Property(e => e.Detail).HasColumnName("detail");
+            entity.Property(e => e.Image)
+                .HasMaxLength(250)
+                .HasColumnName("image");
+        });
 
         modelBuilder.Entity<Blog>(entity =>
         {
@@ -107,6 +126,30 @@ public partial class PmitLn2oqDb0001Context : DbContext
                 .HasColumnName("typeid");
         });
 
+        modelBuilder.Entity<Contactfomr>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("contactfomr");
+
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
+            entity.Property(e => e.Email)
+                .HasMaxLength(100)
+                .HasColumnName("email");
+            entity.Property(e => e.Lastname)
+                .HasMaxLength(100)
+                .HasColumnName("lastname");
+            entity.Property(e => e.Message).HasColumnName("message");
+            entity.Property(e => e.Name)
+                .HasMaxLength(100)
+                .HasColumnName("name");
+            entity.Property(e => e.Subject)
+                .HasMaxLength(100)
+                .HasColumnName("subject");
+        });
+
         modelBuilder.Entity<Event>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
@@ -170,36 +213,87 @@ public partial class PmitLn2oqDb0001Context : DbContext
             entity.Property(e => e.Id)
                 .HasColumnType("int(11)")
                 .HasColumnName("id");
+            entity.Property(e => e.Address)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'0'")
+                .HasColumnName("address");
+            entity.Property(e => e.City)
+                .HasMaxLength(100)
+                .HasDefaultValueSql("'0'")
+                .HasColumnName("city");
             entity.Property(e => e.Description)
                 .HasColumnType("text")
                 .HasColumnName("description");
+            entity.Property(e => e.District)
+                .HasMaxLength(100)
+                .HasDefaultValueSql("'0'")
+                .HasColumnName("district");
             entity.Property(e => e.Email)
                 .HasMaxLength(250)
                 .HasColumnName("email");
+            entity.Property(e => e.Facebook)
+                .HasMaxLength(250)
+                .HasDefaultValueSql("'0'")
+                .HasColumnName("facebook");
             entity.Property(e => e.Favicon)
                 .HasMaxLength(250)
                 .HasColumnName("favicon");
+            entity.Property(e => e.Fax)
+                .HasMaxLength(100)
+                .HasDefaultValueSql("'0'")
+                .HasColumnName("fax");
+            entity.Property(e => e.Image)
+                .HasMaxLength(250)
+                .HasColumnName("image");
+            entity.Property(e => e.Instagram)
+                .HasMaxLength(250)
+                .HasDefaultValueSql("'0'")
+                .HasColumnName("instagram");
             entity.Property(e => e.Keywords)
                 .HasColumnType("text")
                 .HasColumnName("keywords");
+            entity.Property(e => e.Linkedin)
+                .HasMaxLength(250)
+                .HasDefaultValueSql("'0'")
+                .HasColumnName("linkedin");
             entity.Property(e => e.Logo)
                 .HasMaxLength(250)
                 .HasColumnName("logo");
             entity.Property(e => e.Logo2)
                 .HasMaxLength(250)
                 .HasColumnName("logo2");
+            entity.Property(e => e.Mobile)
+                .HasMaxLength(100)
+                .HasDefaultValueSql("'0'")
+                .HasColumnName("mobile");
             entity.Property(e => e.Name)
                 .HasMaxLength(250)
                 .HasColumnName("name");
             entity.Property(e => e.Page)
                 .HasColumnType("int(11)")
                 .HasColumnName("page");
+            entity.Property(e => e.Phone)
+                .HasMaxLength(100)
+                .HasDefaultValueSql("'0'")
+                .HasColumnName("phone");
+            entity.Property(e => e.Postcode)
+                .HasMaxLength(100)
+                .HasDefaultValueSql("'0'")
+                .HasColumnName("postcode");
             entity.Property(e => e.Title)
                 .HasMaxLength(250)
                 .HasColumnName("title");
+            entity.Property(e => e.Twitter)
+                .HasMaxLength(250)
+                .HasDefaultValueSql("'0'")
+                .HasColumnName("twitter");
             entity.Property(e => e.Url)
                 .HasMaxLength(250)
                 .HasColumnName("url");
+            entity.Property(e => e.Youtube)
+                .HasMaxLength(250)
+                .HasDefaultValueSql("'0'")
+                .HasColumnName("youtube");
         });
 
         modelBuilder.Entity<Slide>(entity =>
@@ -264,9 +358,6 @@ public partial class PmitLn2oqDb0001Context : DbContext
             entity.Property(e => e.Date)
                 .HasColumnType("datetime")
                 .HasColumnName("date");
-            entity.Property(e => e.Dateend)
-                .HasColumnType("datetime")
-                .HasColumnName("dateend");
             entity.Property(e => e.Detail).HasColumnName("detail");
             entity.Property(e => e.Image)
                 .HasMaxLength(250)

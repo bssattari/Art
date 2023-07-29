@@ -7,9 +7,12 @@
 	String ip = ViewContext.HttpContext.Connection.RemoteIpAddress!.ToString();
 
 	int like = Model.Likes!.Where(x => x.Type == "work" && x.Typeid == Model.Work.Id).Count();
-	bool isLike = Model.Likes!.Where(x => x.Ip == ip && x.Type == "work" && x.Typeid == Model.Work.Id).Count() > 0 ? true :
-	@* bool isLike = Model.Likes!.FirstOrDefault(x => x.Ip == ip && x.Type == "work" && x.Typeid == Model.Work.Id)!==null ? true : *@
-	false;
+	bool isLike = Model.Likes!.FirstOrDefault(x => x.Ip == ip && x.Type == "work" && x.Typeid == Model.Work.Id) != null ? true
+	:false;
+	
+	@* bool isLike = Model.Likes!.FirstOrDefault(x => x.Ip == ip && x.Type == "work" && x.Typeid == Model.Work.Id)!==null ?
+true : *@
+
 }
 
 @{
@@ -31,19 +34,10 @@
 							<div class="desc">
 								<p class="meta">
 
-									<span class="date">@(String.Format("{0:dd MMM yyyy}", Model.Work.Date)) -
-										@(String.Format("{0:dd MMM yyyy}", Model.Work.Dateend))</span>
-									<span class="pos"><i class="icon-eye text-success"></i> @Model.Work.Read </span>
-									<span class="pos">
-										<a href="/like/work/@Model.Work.Id">
-											<i 
-											class='fa-sharp fa-solid fa-heart @(isLike?"text-dander":"") '></i></a>
-										@like
+									<span class="date"> <i class="fa-solid fa-calendar-days"></i>@(String.Format("{0:dd MMM yyyy}", Model.Work.Date))</span>
+									<span class="pos"><i class="icon-eye text-success"> @Model.Work.Read </i></span>
+									<span class="pos"><i class='fa-sharp fa-solid fa-heart @(isLike?"text-danger":"")' id="like" data-id="@Model.Work.Id" data-type="work"></i> <span id="likeCount">@like</span>	
 									</span>
-
-
-
-
 								</p>
 								<h2>@Model.Work.Title</h2>
 								@Html.Raw(Model.Work.Detail)

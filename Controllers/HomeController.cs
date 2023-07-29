@@ -62,6 +62,7 @@ public class HomeController : Controller
         var model = new IndexViewModel()
         {
             Site = db.Sites!.First(),
+            About = db.Abouts!.First(),
             Blogs = db.Blogs!.OrderByDescending(x => x.Id).Where(x => x.Isview == true).ToList(),
             Events = db.Events!.OrderByDescending(x => x.Id).Where(x => x.Isview == true).ToList(),
             Likes = db.Likes!.OrderByDescending(x => x.Id).ToList(),
@@ -155,6 +156,28 @@ public class HomeController : Controller
         return View(model);
     }
 
+        [Route("/contact/{currentPage?}")]
+    public IActionResult Contact(int currentPage)
+    {
+        if (currentPage == 0)
+        {
+            currentPage = 1;
+        }
+
+        HttpContext.Session.SetInt32("currentPage", currentPage);
+
+        var model = new IndexViewModel()
+        {
+            Site = db.Sites!.First(),
+            Blogs = db.Blogs!.OrderByDescending(x => x.Id).Where(x => x.Isview == true).ToList(),
+            Events = db.Events!.OrderByDescending(x => x.Id).Where(x => x.Isview == true).ToList(),
+            /* Contacts = db.Contacts!.OrderByDescending(x => x.Id).Where(x => x.Isview == true).ToList(), */
+            Likes = db.Likes!.OrderByDescending(x => x.Id).ToList(),
+            Workcats = db.Workcats!.OrderByDescending(x => x.Id).Where(x => x.Isview == true).ToList(),
+        };
+        return View(model);
+    }
+
 
     [Route("/workcat")]
     public IActionResult WorkCat()
@@ -225,6 +248,7 @@ public class HomeController : Controller
     public IActionResult Like(string type, int id)
     {
         String ip = Request.HttpContext.Connection.RemoteIpAddress!.ToString();
+        
         if (db.Likes.Where(x => x.Ip == ip && x.Typeid == id && x.Type == type).Count() == 0)
         {
             Like toAdd = new Like();
@@ -240,8 +264,11 @@ public class HomeController : Controller
             db.Remove(toDelete);
             db.SaveChanges();
         }
+        int likeCount=db.Likes.Where(x =>x.Typeid == id && x.Type == type).Count();
 
-        return Redirect(TempData["Url"]!.ToString()!);
+        return Content(likeCount.ToString());
+
+       /*  return Redirect(TempData["Url"]!.ToString()!); */
     }
 
 
