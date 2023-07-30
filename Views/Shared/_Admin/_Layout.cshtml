@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+   @{await Html.RenderPartialAsync("_Admin/_Head");}
+
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  
+  @{await Html.RenderPartialAsync("_Admin/_Header");}
+
+  @{await Html.RenderPartialAsync("_Admin/_Nav");}
+  
+  @RenderBody()
+
+  @{await Html.RenderPartialAsync("_Admin/_Footer");} 
+ </div>
+
+@{await Html.RenderPartialAsync("_Admin/_Scripts");}
+
+</body>
+</html>

@@ -12,11 +12,12 @@ public class AdminController : Controller
     {
         _logger = logger;
     }
-
-    public IActionResult Index()
+    [Route("/admin")]
+     public IActionResult Index()
     {
         return View();
     }
+
 
     public IActionResult Privacy()
     {

@@ -42,19 +42,20 @@ public class HomeController : Controller
     }
 
 
-    [Route("/contact")]
-    public IActionResult Contact()
+   [HttpPost]
+    [ValidateAntiForgeryToken]
+    [Route("/contactform")]
+    public IActionResult ContactForm(Contactform postedData)
     {
-        var model = new IndexViewModel()
-        {
-            Site = db.Sites!.First(),
-            Blogs = db.Blogs!.OrderByDescending(x => x.Id).Where(x => x.Isview == true).ToList(),
-            Events = db.Events!.OrderByDescending(x => x.Id).Where(x => x.Isview == true).ToList(),
-            Likes = db.Likes!.OrderByDescending(x => x.Id).ToList(),
-            Workcats = db.Workcats!.OrderByDescending(x => x.Id).Where(x => x.Isview == true).ToList(),
-        };
-        return View(model);
-    }
+        postedData.Isview = false;
+        postedData.Date = DateTime.Now;
+        db.Contactforms.Add(postedData);
+        db.SaveChanges();
+        TempData["Success"] = " Mesajiniz Basariyla iletildi en kisa surede size geri donus yapilacakdi! ";
+        return Redirect(TempData["Url"]!.ToString()!);
+
+        
+    } 
 
     [Route("/about")]
     public IActionResult About()

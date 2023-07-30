@@ -51,5 +51,5 @@ public partial class Site
 
     public int Page { get; set; }
 
-    public string? Image { get; set; }
+    public string? Maps { get; set; }
 }

@@ -1,83 +1,109 @@
-﻿@{
-    ViewData["Title"] = "İletişim";
+﻿@model Art.Models.IndexViewModel
+@{
+	ViewData["Title"] = "İletişim";
 }
 
-@{await Html.RenderPartialAsync("_Breadcrumbs");}
+@{
+	await Html.RenderPartialAsync("_Breadcrumbs");
+}
 
 
-		<div id="colorlib-container">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<h2 class="heading-2">İletişim bilgileri</h2>
-						<div class="row contact-info-wrap row-pb-lg">
-							<div class="col-md-3">
-								<p><span><i class="fa-sharp fa-solid fa-location-dot"></i></i></span> 198 West 21th Street, <br> Suite 721 New York NY 10016</p>
-							</div>
-							<div class="col-md-3">
-								<p><span><i class="fa-solid fa-phone"></i></span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
-							</div>
-							<div class="col-md-3">
-								<p><span><i class="fa-solid fa-envelope"></i></i></span> <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
-							</div>
-							<div class="col-md-3">
-								<p><span><i class="fa-solid fa-globe"></i></span> <a href="#">yourwebsite.com</a></p>
-							</div>
-						</div>
+<div id="colorlib-container">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2 class="heading-2">İletişim bilgileri</h2>
+				<div class="row contact-info-wrap row-pb-lg">
+					<div class="col-md-3">
+						<i class="fa-sharp fa-solid fa-location-dot"></i> @Model.Site!.Address,
+						@Model.Site!.Postcode, @Model.Site!.District , @Model.Site!.City</i>
 					</div>
-					<div class="col-md-12">
-						<div class="row">
-							<div class="col-md-6">
-								<div id="map" class="colorlib-map"></div>
+					<div class="col-md-3">
+						<p><span><i class="fa-solid fa-mobile-screen"></i></span> <a
+								href='tel:@("+90" + Model.Site.Mobile)'>+ 90 @String.Format("{0:(###)### ####}",
+								Convert.ToInt64(@Model.Site.Mobile))</a></p>
+					</div>
+					<div class="col-md-3">
+						<p><span><i class="fa-regular fa-envelope"></i></i></span> <a
+								href="mailto:@Model.Site.Email">@Model.Site.Email</a></p>
+					</div>
+					<div class="col-md-3">
+						<p><span><i class="fa-solid fa-globe"></i></span> <a href="@Model.Site.Url"
+								target="_blank">@Model.Site.Url</a></p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="colorlib-map">@Html.Raw(Model.Site.Maps)</div>
+					</div>
+					<div class="col-md-6">
+						<h2 class="heading-2">Bize Ulaşın</h2>
+						<form method="post" action="/contactform">
+							@Html.AntiForgeryToken()
+							<div class="row form-group">
+								<div class="col-md-6">
+									<label for="fname">Adıniz</label>
+									<input type="text" asp-for="Name" name="Name" class=form-control
+										placeholder="Adınız * ">
+									<span asp-validation-for="Name" class="text-danger"></span>
+
+								</div>
+								<div class="col-md-6">
+									<label for="lname">Soyadı</label>
+									<input type="text" asp-for="Lastname" name="Lastname" class="form-control" placeholder="Soy adınız * ">
+									<span asp-validation-for="Lastname" class="text-danger"></span>
+
+								</div>
 							</div>
-							<div class="col-md-6">
-								<h2 class="heading-2">Bize Ulaşın</h2>
-								<form method="post" action="/message">
-								@Html.AntiForgeryToken()
-									<div class="row form-group">
-										<div class="col-md-6">
-											<label for="fname">Adı</label>
-											<input type="text" id="fname" class="form-control" placeholder="Adınız * ">
-											
-										</div>
-										<div class="col-md-6">
-											<label for="lname">Soyadı</label>
-											<input type="text" id="lname" class="form-control" placeholder="Soy adınız * ">
-											
-										</div>
-									</div>
 
-									<div class="row form-group">
-										<div class="col-md-12">
-											<label for="email">Email</label>
-											<input type="text" id="email" class="form-control" placeholder="e-posta adresiniz * ">
-											
-										</div>
-									</div>
+							<div class="row form-group">
+								<div class="col-md-12">
+									<label for="email">Email</label>
+									<input asp-for="Email" type="email" name="Email" class="form-control"
+										placeholder="Email Adresiniz *">
+									<span asp-validation-for="Email" class="text-danger"></span>
 
-									<div class="row form-group">
-										<div class="col-md-12">
-											<label for="subject">Mesaj Konusu</label>
-											<input type="text" id="subject" class="form-control" placeholder="Bu mesajın konusu">
-											
-										</div>
-									</div>
-
-									<div class="row form-group">
-										<div class="col-md-12">
-											<label for="message">Mesaj</label>
-											<textarea name="message" id="message" cols="30" rows="10" class="form-control" placeholder="Hakkımızda bir şeyler söyle * "></textarea>
-											
-										</div>
-									</div>
-									<div class="form-group">
-										<input type="submit" value="Mesaj gönder" class="btn btn-primary">
-									</div>
-
-								</form>	
+								</div>
 							</div>
-						</div>
+
+							<div class="row form-group">
+								<div class="col-md-12">
+									<label for="subject">Subject</label>
+									<input type="text" asp-for="Subject" name="Subject" class="form-control"
+										placeholder="Yorumunuzun konusu *"></input>
+									<span asp-validation-for="Subject" class="text-danger"></span>
+
+								</div>
+							</div>
+
+							<div class="row form-group">
+								<div class="col-md-12">
+									<label for="message">Mesaj</label>
+									<textarea asp-for="Message" name="Message" cols="30" rows="10" class="form-control"
+										placeholder="Yorumunuz *"></textarea>
+									<span asp-validation-for="Message" class="text-danger"></span>
+
+								</div>
+							</div>
+							<div class="form-group">
+								<input type="submit" value="Mesaji gönder" class="btn btn-primary">
+							</div>
+
+						</form>
+						@if (TempData["Success"] != null)
+						{
+							<div class="alert alert-success" role="alert">
+								@TempData["Success"]
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+						}
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+</div>

@@ -21,6 +21,9 @@ public class IndexViewModel
     [Required(ErrorMessage = "Lutfen doldurunuz!")]
     public string? Message { get; set; }
 
+    [Required(ErrorMessage = "Lutfen doldurunuz!")]
+    public string? Subject { get; set; }
+
 
 
 
@@ -40,8 +43,8 @@ public class IndexViewModel
     public IEnumerable<Workcat>? Workcats { get; set; }
      public Workcat? Workcat { get; set; }
     public IEnumerable<Comment>? Comments { get; set; }
-    public Work? Contact { get; set; }
-    public IEnumerable<Comment>? Contacts { get; set; }
+    /* public Contactform? Contactform { get; set; }
+    public IEnumerable<Contactform>? Contactforms { get; set; } */
     public IEnumerable<Like>? Likes { get; set; }
     public About? About { get; internal set; }
 }

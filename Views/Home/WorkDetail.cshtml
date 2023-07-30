@@ -81,13 +81,13 @@ true : *@
 							@Html.AntiForgeryToken()
 							<div class="row form-group">
 								<div class="col-md-6">
-									<!-- <label for="fname">First Name</label> -->
+									 <label for="fname">First Name</label> 
 									<input asp-for="Name" type="text" name="Name" class="form-control"
 										placeholder="Adiniz *">
 									<span asp-validation-for="Name" class="text-danger"></span>
 								</div>
 								<div class="col-md-6">
-									<!-- <label for="lname">Last Name</label> -->
+									 <label for="lname">Last Name</label> 
 									<input asp-for="Lastname" type="text" name="LastName" class="form-control"
 										placeholder="Soyadiniz *">
 									<span asp-validation-for="Lastname" class="text-danger"></span>
@@ -96,7 +96,7 @@ true : *@
 
 							<div class="row form-group">
 								<div class="col-md-12">
-									<!-- <label for="email">Email</label> -->
+									 <label for="email">Email</label> 
 									<input asp-for="Email" type="email" name="Email" class="form-control"
 										placeholder="Email Adresiniz *">
 									<span asp-validation-for="Email" class="text-danger"></span>
@@ -106,7 +106,7 @@ true : *@
 
 							<div class="row form-group">
 								<div class="col-md-12">
-									<!-- <label for="message">Message</label> -->
+									 <label for="message">Message</label> 
 									<textarea asp-for="Message" name="Message" cols="30" rows="10" class="form-control"
 										placeholder="Yorumunuz *"></textarea>
 									<span asp-validation-for="Message" class="text-danger"></span>

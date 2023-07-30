@@ -21,7 +21,7 @@ public partial class PmitLn2oqDb0001Context : DbContext
 
     public virtual DbSet<Comment> Comments { get; set; }
 
-    public virtual DbSet<Contactfomr> Contactfomrs { get; set; }
+    public virtual DbSet<Contactform> Contactforms { get; set; }
 
     public virtual DbSet<Event> Events { get; set; }
 
@@ -30,6 +30,8 @@ public partial class PmitLn2oqDb0001Context : DbContext
     public virtual DbSet<Site> Sites { get; set; }
 
     public virtual DbSet<Slide> Slides { get; set; }
+
+    public virtual DbSet<Smtp> Smtps { get; set; }
 
     public virtual DbSet<Subscribe> Subscribes { get; set; }
 
@@ -126,18 +128,22 @@ public partial class PmitLn2oqDb0001Context : DbContext
                 .HasColumnName("typeid");
         });
 
-        modelBuilder.Entity<Contactfomr>(entity =>
+        modelBuilder.Entity<Contactform>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("contactfomr");
+            entity.ToTable("contactform");
 
             entity.Property(e => e.Id)
                 .HasColumnType("int(11)")
                 .HasColumnName("id");
+            entity.Property(e => e.Date)
+                .HasColumnType("datetime")
+                .HasColumnName("date");
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
                 .HasColumnName("email");
+            entity.Property(e => e.Isview).HasColumnName("isview");
             entity.Property(e => e.Lastname)
                 .HasMaxLength(100)
                 .HasColumnName("lastname");
@@ -242,9 +248,6 @@ public partial class PmitLn2oqDb0001Context : DbContext
                 .HasMaxLength(100)
                 .HasDefaultValueSql("'0'")
                 .HasColumnName("fax");
-            entity.Property(e => e.Image)
-                .HasMaxLength(250)
-                .HasColumnName("image");
             entity.Property(e => e.Instagram)
                 .HasMaxLength(250)
                 .HasDefaultValueSql("'0'")
@@ -262,6 +265,9 @@ public partial class PmitLn2oqDb0001Context : DbContext
             entity.Property(e => e.Logo2)
                 .HasMaxLength(250)
                 .HasColumnName("logo2");
+            entity.Property(e => e.Maps)
+                .HasMaxLength(500)
+                .HasColumnName("maps");
             entity.Property(e => e.Mobile)
                 .HasMaxLength(100)
                 .HasDefaultValueSql("'0'")
@@ -324,6 +330,33 @@ public partial class PmitLn2oqDb0001Context : DbContext
             entity.Property(e => e.Url)
                 .HasMaxLength(250)
                 .HasColumnName("url");
+        });
+
+        modelBuilder.Entity<Smtp>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("smtp");
+
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
+            entity.Property(e => e.Email)
+                .HasMaxLength(100)
+                .HasDefaultValueSql("'0'")
+                .HasColumnName("email");
+            entity.Property(e => e.Password)
+                .HasMaxLength(100)
+                .HasDefaultValueSql("'0'")
+                .HasColumnName("password");
+            entity.Property(e => e.Port)
+                .HasColumnType("int(11)")
+                .HasColumnName("port");
+            entity.Property(e => e.Server)
+                .HasMaxLength(100)
+                .HasDefaultValueSql("'0'")
+                .HasColumnName("server");
+            entity.Property(e => e.Ssl).HasColumnName("ssl");
         });
 
         modelBuilder.Entity<Subscribe>(entity =>
