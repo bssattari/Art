@@ -1,0 +1,30 @@
+.user-panel .image {
+    padding: 0;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #c2c7d0;
+    
+}
+
+.user-panel .icon {  
+   font-size: 20px;   
+}
+
+.user-panel .info {
+  padding: 0; 
+  width: 60%;    
+ }
+
+.user-panel{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 10px;
+}

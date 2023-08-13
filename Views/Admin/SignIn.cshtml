@@ -1,0 +1,90 @@
+@model Art.Models.IndexViewModel
+
+@{
+  Layout = "~/Views/Shared/_Admin/_LayoutFree.cshtml";
+  ViewData["Title"] = "Giriş";
+}
+
+<div class="login-box">
+  <div class="login-logo">
+    <b>Admin</b> Giriş
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">
+        @if (TempData["Danger"] != null)
+						{
+							<div class="alert alert-danger" role="alert">
+								@TempData["Danger"]
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+						}
+
+         @if (TempData["Success"] != null)
+						{
+							<div class="alert alert-success" role="alert">
+								@TempData["Success"]
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+						}
+      </p>
+
+      <form action="/admin/signin" method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="row form-group">
+          <div class="input-group mb-3">
+            <input type="email" asp-for="Email" name="Email" class="form-control" placeholder="Email">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+          <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="row form-group">
+          <div class="input-group mb-3">
+            <input type="password" asp-for="Password" name="Password" class="form-control" placeholder="Şifre">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <p class="mb-3 text-right">
+              <a href="admin/forgot-password">Şifremi Unuttum</a>
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" asp-for="User.Isremember"  name="Isremember" id="remember" >
+              <label for="remember">
+                Beni Hatırla
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Giriş</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+<!-- /.login-box -->

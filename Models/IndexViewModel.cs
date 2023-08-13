@@ -17,18 +17,14 @@ public class IndexViewModel
     [Required(ErrorMessage = "Lutfen doldurunuz!")]
     [EmailAddress(ErrorMessage = "Gecerli bir Email adresi giriniz!")]
     public string? Email { get; set; }
-
+     [Required(ErrorMessage = "Lutfen doldurunuz!")]
+      public string? Password { get; set; }
     [Required(ErrorMessage = "Lutfen doldurunuz!")]
     public string? Message { get; set; }
-
     [Required(ErrorMessage = "Lutfen doldurunuz!")]
+   
     public string? Subject { get; set; }
-
-
-
-
-
-
+    public bool? Isremember { get; set; }
 
     /* Others */
     public Site? Site { get; set; }
@@ -47,5 +43,8 @@ public class IndexViewModel
     public IEnumerable<Contactform>? Contactforms { get; set; } */
     public IEnumerable<Like>? Likes { get; set; }
     public About? About { get; internal set; }
+
+    public User? User { get; set; }
+    public IEnumerable<User>? Users { get; set; }
 }
 

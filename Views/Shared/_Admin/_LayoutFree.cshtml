@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+    @{await Html.RenderPartialAsync("_Admin/_Head");}
+
+<body class="hold-transition login-page">
+@RenderBody()
+
+@{await Html.RenderPartialAsync("_Admin/_Scripts");}
+
+</body>
+</html>

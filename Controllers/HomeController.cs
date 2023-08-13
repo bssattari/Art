@@ -14,7 +14,9 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    PmitLn2oqDb0001Context db = new PmitLn2oqDb0001Context();
+    PmitLn2oqDb0001Context db = new PmitLn2oqDb0001Context()!;
+
+    
 
     public string? Email { get; private set; }
 

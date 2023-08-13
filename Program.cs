@@ -1,5 +1,8 @@
 using Art.Models.Entities;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,9 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddSession();
 var connetionString = builder.Configuration.GetConnectionString("DefaultConnection");
-IServiceCollection serviceCollection = builder.Services.AddDbContext<PmitLn2oqDb0001Context>(options => options.UseMySql(connetionString, ServerVersion.AutoDetect(connetionString)));
+builder.Services.AddDbContext<PmitLn2oqDb0001Context>(options => options.UseMySql(connetionString, ServerVersion.AutoDetect(connetionString)));
+builder.Services.AddSession();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/admin/signin");
 
 var app = builder.Build();
 
@@ -21,10 +25,13 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 app.UseSession();
+app.UseCookiePolicy();
+app.UseAuthentication();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
 
 app.UseAuthorization();
 
