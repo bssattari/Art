@@ -5,6 +5,8 @@ using Art.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using MimeKit;
+using System.Text;
 
 namespace Art.Controllers;
 
@@ -33,6 +35,65 @@ public class AdminController : Controller
 
 
         return View(model);
+    }
+
+    [AllowAnonymous]
+    [Route("/admin/forgot-password")]
+    public IActionResult ForgotPassword()
+    {
+
+        var model = new IndexViewModel()
+        {
+            Site = db.Sites!.First(),
+        };
+
+
+        return View(model);
+    }
+
+    [AllowAnonymous]
+    [HttpPost]
+    [IgnoreAntiforgeryToken]
+    [Route("/admin/recover-password")]
+    public IActionResult RecowerPassword(User postedData)
+    {
+
+        User user = db.Users!.FirstOrDefault(x => x.Email == postedData.Email && x.Role == "admin")!;
+        Site site = db.Sites!.First();
+        Smtp smtp = db.Smtps!.First();
+
+        if (user != null)
+        {
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress(site.Title, smtp.Email));
+            message.To.Add(new MailboxAddress("Admin", user.Email));
+            message.Subject = site.Title + " | Admin Şifre Hatırlatma";
+
+            var body = new StringBuilder();
+            body.AppendLine(site.Title + " | Admin Şifre Hatırlatma");
+            body.AppendLine("");
+            body.AppendLine("------------------------------------------");
+            body.AppendLine("");
+
+            body.AppendLine("Email : " + user.Email);
+            body.AppendLine("Şifre : " + user.Password);
+
+            message.Body = new TextPart("plain")
+            {
+                Text = body.ToString(),
+            };
+
+            Methods.sendEmail(message);
+            
+            TempData["Success"] = "Şifreniz e-mail adresine gönderilmiştir!";
+            return Redirect("/admin/forgot-password");
+
+        }
+        else
+        {
+            TempData["Danger"] = "Bu e-mail adresi sisteme kayıtlı değil!";
+            return Redirect("/admin/forgot-password");
+        }
     }
 
     [AllowAnonymous]

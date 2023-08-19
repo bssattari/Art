@@ -1,6 +1,11 @@
 using System.Text.RegularExpressions;
+using Art.Models.Entities;
+using MailKit.Net.Smtp;
+
 class Methods
 {
+	
+
     public static string GenerateUrl(string Url)
 	{
 		string UrlPeplaceSpecialWords = Regex.Replace(Url, @"&quot;|['"",&?%\.!()@$^_+=*:#/\\-]", " ").Trim();
@@ -18,4 +23,17 @@ class Methods
 		return seoUrl;
 	}
 
+	public static void sendEmail(MimeKit.MimeMessage message)
+	{
+		PmitLn2oqDb0001Context db = new PmitLn2oqDb0001Context()!;
+		Smtp smtp = db.Smtps.First();
+
+		using (var client = new SmtpClient())
+		{
+			client.Connect(smtp.Server, smtp.Port, smtp.Ssl);
+			client.Authenticate(smtp.Email, smtp.Password);
+			client.Send(message);
+			client.Disconnect(true);
+		}
+	}
 }

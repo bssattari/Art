@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Art.Models;
 using Art.Models.Entities;
+using MimeKit;
+using System.Text;
 
 namespace Art.Controllers;
 
@@ -16,7 +18,7 @@ public class HomeController : Controller
 
     PmitLn2oqDb0001Context db = new PmitLn2oqDb0001Context()!;
 
-    
+
 
     public string? Email { get; private set; }
 
@@ -44,7 +46,7 @@ public class HomeController : Controller
     }
 
 
-   [HttpPost]
+    [HttpPost]
     [ValidateAntiForgeryToken]
     [Route("/contactform")]
     public IActionResult ContactForm(Contactform postedData)
@@ -53,11 +55,38 @@ public class HomeController : Controller
         postedData.Date = DateTime.Now;
         db.Contactforms.Add(postedData);
         db.SaveChanges();
+
+        
+
+        Site site=db.Sites.First();
+        Smtp smtp=db.Smtps.First();
+
+        var message = new MimeMessage();
+        message.From.Add(new MailboxAddress(site.Title, smtp.Email));
+        message.To.Add(new MailboxAddress("Admin", site.Email));
+        message.Subject = site.Title + " | Iletisim Formu";
+
+        var body = new StringBuilder();
+        body.AppendLine(site.Title + " | Iletisim Formu");
+        body.AppendLine("");
+        body.AppendLine("------------------------------------------");
+        body.AppendLine("");
+        body.AppendLine("Gonderen : " + postedData.Name +" " +postedData.Lastname);
+        body.AppendLine("Email : " + postedData.Email);
+        body.AppendLine("Konu : " + postedData.Subject);
+        body.AppendLine("Mesaji : " + postedData.Message);
+
+        message.Body = new TextPart("plain")
+        {
+            Text = body.ToString(),
+        };
+
+        Methods.sendEmail(message);
         TempData["Success"] = " Mesajiniz Basariyla iletildi en kisa surede size geri donus yapilacakdi! ";
         return Redirect(TempData["Url"]!.ToString()!);
 
-        
-    } 
+
+    }
 
     [Route("/about")]
     public IActionResult About()
@@ -159,7 +188,7 @@ public class HomeController : Controller
         return View(model);
     }
 
-        [Route("/contact/{currentPage?}")]
+    [Route("/contact/{currentPage?}")]
     public IActionResult Contact(int currentPage)
     {
         if (currentPage == 0)
@@ -251,7 +280,7 @@ public class HomeController : Controller
     public IActionResult Like(string type, int id)
     {
         String ip = Request.HttpContext.Connection.RemoteIpAddress!.ToString();
-        
+
         if (db.Likes.Where(x => x.Ip == ip && x.Typeid == id && x.Type == type).Count() == 0)
         {
             Like toAdd = new Like();
@@ -267,11 +296,11 @@ public class HomeController : Controller
             db.Remove(toDelete);
             db.SaveChanges();
         }
-        int likeCount=db.Likes.Where(x =>x.Typeid == id && x.Type == type).Count();
+        int likeCount = db.Likes.Where(x => x.Typeid == id && x.Type == type).Count();
 
         return Content(likeCount.ToString());
 
-       /*  return Redirect(TempData["Url"]!.ToString()!); */
+        /*  return Redirect(TempData["Url"]!.ToString()!); */
     }
 
 

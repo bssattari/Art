@@ -44,14 +44,14 @@
 							@Html.AntiForgeryToken()
 							<div class="row form-group">
 								<div class="col-md-6">
-									<label for="fname">Adıniz</label>
+									<label asp-for="Name">Adıniz</label>
 									<input type="text" asp-for="Name" name="Name" class=form-control
 										placeholder="Adınız * ">
 									<span asp-validation-for="Name" class="text-danger"></span>
 
 								</div>
 								<div class="col-md-6">
-									<label for="lname">Soyadı</label>
+									<label asp-for="Lastname">Soyadı</label>
 									<input type="text" asp-for="Lastname" name="Lastname" class="form-control" placeholder="Soy adınız * ">
 									<span asp-validation-for="Lastname" class="text-danger"></span>
 
@@ -60,7 +60,7 @@
 
 							<div class="row form-group">
 								<div class="col-md-12">
-									<label for="email">Email</label>
+									<label asp-for="Email">Email</label>
 									<input asp-for="Email" type="email" name="Email" class="form-control"
 										placeholder="Email Adresiniz *">
 									<span asp-validation-for="Email" class="text-danger"></span>
@@ -70,9 +70,9 @@
 
 							<div class="row form-group">
 								<div class="col-md-12">
-									<label for="subject">Subject</label>
+									<label asp-for="Subject">Subject</label>
 									<input type="text" asp-for="Subject" name="Subject" class="form-control"
-										placeholder="Yorumunuzun konusu *"></input>
+										placeholder="konu *"></input>
 									<span asp-validation-for="Subject" class="text-danger"></span>
 
 								</div>
@@ -80,9 +80,9 @@
 
 							<div class="row form-group">
 								<div class="col-md-12">
-									<label for="message">Mesaj</label>
+									<label asp-for="Message">Mesaj</label>
 									<textarea asp-for="Message" name="Message" cols="30" rows="10" class="form-control"
-										placeholder="Yorumunuz *"></textarea>
+										placeholder="Mesajiniz *"></textarea>
 									<span asp-validation-for="Message" class="text-danger"></span>
 
 								</div>
