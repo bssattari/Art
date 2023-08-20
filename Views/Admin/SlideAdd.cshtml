@@ -1,0 +1,74 @@
+﻿@model Art.Models.IndexViewModel
+
+@{
+  Layout = "~/Views/Shared/Admin/_Layout.cshtml";
+  ViewData["Title"] = "Slayt Ekle";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-lg-6">
+          <h1>@ViewData["Title"]</h1>
+        </div>
+        <div class="col-lg-6 text-right">
+          <a href="/admin/slide" class="btn btn-app bg-success">
+            <i class="fas fa-list"></i> Liste
+          </a>
+        </div>
+
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <!-- /.card-header -->
+            <div class="card-body">
+              <form method="post" action="/admin/slide/save">
+                 @Html.AntiForgeryToken()
+                <div class="card-body">
+
+                  <div class="form-group">
+                    <label for="file">Resim</label>
+                    <input type="file" class="form-control" id="file" required="on" placeholder="Dosya seçiniz">
+                   
+                  
+                  </div>
+                  <div class="form-group">
+                    <label asp-for="Title">Başlık</label>
+                    <input type="text" asp-for="Title" name="Title" class="form-control" placeholder="Başlık">
+                   <span asp-validation-for="Title" class="text-danger"></span>
+                  </div>
+                 
+                  
+                
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Kaydet</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>

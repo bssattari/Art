@@ -31,8 +31,34 @@ public class AdminController : Controller
         {
             User = db.Users!.FirstOrDefault(x => x.Id == id && x.Role == "admin"),
             Site = db.Sites!.First(),
+            Slides = db.Slides!.OrderBy(x => x.Order).ToList(),
         };
 
+        return View(model);
+    }
+
+    [Route("/admin/slide/isview/{id}")]
+    public IActionResult SlideIsview(int id)
+    {
+        Slide toUpdate = db.Slides.FirstOrDefault(x => x.Id == id)!;
+        toUpdate.Isview = !toUpdate.Isview;
+        db.Entry(toUpdate).CurrentValues.SetValues(toUpdate);
+        db.SaveChanges();
+
+        return Content(toUpdate.Isview.ToString()!);
+
+        /*  return Redirect(TempData["Url"]!.ToString()!); */
+    }
+    [Route("/admin/slide/add")]
+    public IActionResult SlideAdd()
+    {
+        int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "id")!.Value);
+
+        var model = new IndexViewModel()
+        {
+            User = db.Users!.FirstOrDefault(x => x.Id == id && x.Role == "admin"),
+            Site = db.Sites!.First(),
+        };
 
         return View(model);
     }
@@ -84,7 +110,7 @@ public class AdminController : Controller
             };
 
             Methods.sendEmail(message);
-            
+
             TempData["Success"] = "Şifreniz e-mail adresine gönderilmiştir!";
             return Redirect("/admin/forgot-password");
 
@@ -190,7 +216,7 @@ public class AdminController : Controller
 
         return Redirect("/admin/signin");
     }
-[Route("/admin")]
+    [Route("/admin")]
     public IActionResult Index()
     {
         int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "id")!.Value);

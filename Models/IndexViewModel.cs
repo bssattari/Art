@@ -8,6 +8,9 @@ public class IndexViewModel
 {
 
     /* Validation */
+     [Required(ErrorMessage = "Lutfen doldurunuz!")]
+    public string? Title { get; set; }
+    
     [Required(ErrorMessage = "Lutfen doldurunuz!")]
     public string? Name { get; set; }
 
