@@ -22,8 +22,8 @@ public class AdminController : Controller
 
     PmitLn2oqDb0001Context db = new PmitLn2oqDb0001Context()!;
 
-    [Route("/admin")]
-    public IActionResult Index()
+    [Route("/admin/slide")]
+    public IActionResult Slide()
     {
         int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "id")!.Value);
 
@@ -190,7 +190,20 @@ public class AdminController : Controller
 
         return Redirect("/admin/signin");
     }
+[Route("/admin")]
+    public IActionResult Index()
+    {
+        int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "id")!.Value);
 
+        var model = new IndexViewModel()
+        {
+            User = db.Users!.FirstOrDefault(x => x.Id == id && x.Role == "admin"),
+            Site = db.Sites!.First(),
+        };
+
+
+        return View(model);
+    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
