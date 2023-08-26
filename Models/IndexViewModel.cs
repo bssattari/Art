@@ -8,12 +8,22 @@ public class IndexViewModel
 {
 
     /* Validation */
+    [Required(ErrorMessage = "Lutfen doldurunuz!")]
+    public string? Order { get; set; }
      [Required(ErrorMessage = "Lutfen doldurunuz!")]
     public string? Title { get; set; }
+    [Required(ErrorMessage = "Lutfen Seciniz!")]
+    public IFormFile? File { get; set; }
+    [Required(ErrorMessage = "Lutfen doldurunuz!")]
+    public string? Subtitle { get; set; }
+    [Required(ErrorMessage = "Lutfen doldurunuz!")]
+    public string? Url { get; set; }
+    [Required(ErrorMessage = "Lutfen Seciniz!")]
+    public string? Target { get; set; }
     
     [Required(ErrorMessage = "Lutfen doldurunuz!")]
     public string? Name { get; set; }
-
+  
     [Required(ErrorMessage = "Lutfen doldurunuz!")]
     public string? Lastname { get; set; }
 

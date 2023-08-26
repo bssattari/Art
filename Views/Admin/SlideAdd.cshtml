@@ -1,7 +1,7 @@
 ﻿@model Art.Models.IndexViewModel
 
 @{
-  Layout = "~/Views/Shared/Admin/_Layout.cshtml";
+  Layout = "~/Views/Shared/_Admin/_Layout.cshtml";
   ViewData["Title"] = "Slayt Ekle";
 }
 
@@ -32,22 +32,55 @@
           <div class="card">
             <!-- /.card-header -->
             <div class="card-body">
-              <form method="post" action="/admin/slide/save">
+              <form method="post" action="/admin/slide/save" enctype="multipart/form-data">
                  @Html.AntiForgeryToken()
                 <div class="card-body">
 
                   <div class="form-group">
-                    <label for="file">Resim</label>
-                    <input type="file" class="form-control" id="file" required="on" placeholder="Dosya seçiniz">
-                   
-                  
+                    <label asp-for="File">Resim</label>
+                    <input type="file" asp-for="File" name="File" class="form-control"  placeholder="Dosya seçiniz">
+                    <span asp-validation-for="File" class="text-danger"></span>
                   </div>
+
                   <div class="form-group">
-                    <label asp-for="Title">Başlık</label>
-                    <input type="text" asp-for="Title" name="Title" class="form-control" placeholder="Başlık">
+                    <label asp-for="Order">Sira No</label>
+                    <input type="text" asp-for="Order" name="Order" class="form-control" placeholder="Sira No">
+                   <span asp-validation-for="Order" class="text-danger"></span>
+                  </div>
+
+                  <div class="form-group">
+                    <label asp-for="Title">Baslik</label>
+                    <input type="text" asp-for="Title" name="Title" class="form-control" placeholder="Baslik">
                    <span asp-validation-for="Title" class="text-danger"></span>
                   </div>
-                 
+                  
+                 <div class="form-group">
+                    <label asp-for="Subtitle">Manset</label>
+                    <textarea name="Subtitle" asp-for="Subtitle" class="form-control" rows="3" placeholder="Manset"></textarea>
+                   <span asp-validation-for="Subtitle" class="text-danger"></span>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-8">
+                      <div class="form-group">
+                    <label asp-for="Url">Url</label>
+                    <input type="text" asp-for="Url" name="Url" class="form-control" placeholder="Url">
+                   <span asp-validation-for="Url" class="text-danger"></span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-group">
+                    <label asp-for="Target">Hedef</label>
+                    <select name="Target" asp-for="Target" class="form-control">
+                      <option>_self</option>
+                      <option>_blank</option>
+                    </select>
+                   <span asp-validation-for="Target" class="text-danger"></span>
+                  </div>
+                    </div>
+                  </div>
+
+                  
                   
                 
                 </div>
