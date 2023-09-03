@@ -1,0 +1,113 @@
+﻿@model Art.Models.IndexViewModel
+
+@{
+  Layout = "~/Views/Shared/Admin/_Layout.cshtml";
+  ViewData["Title"] = "Slayt Düzenle";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-lg-6">
+          <h1>@ViewData["Title"]</h1>
+        </div>
+        <div class="col-lg-6 text-right">
+          <a href="/admin/slide" class="btn btn-app bg-success">
+            <i class="fas fa-list"></i> Liste
+          </a>
+        </div>
+
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <!-- /.card-header -->
+            <div class="card-body">
+              <form method="post" action="/admin/slide/save" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <div class="card-body">
+
+                  <div class="form-group">
+                    <img src="~/uploads/images/@Model.Slide!.Image" width="120" alt="">
+                  </div>
+
+
+                  <div class="form-group">
+                    <label id="File">Resim</label>
+                    <input type="file" id="File" name="File" class="form-control" placeholder="Dosya seçiniz">
+
+                  </div>
+
+                  <div class="form-group">
+                    <label asp-for="Slide.Order">Sıra No</label>
+                    <input type="text" asp-for="Slide.Order" name="Order" class="form-control"
+                      placeholder="Sıra No">
+                    <span asp-validation-for="Slide.Order" class="text-danger"></span>
+                  </div>
+                  <div class="form-group">
+                    <label asp-for="Slide.Title">Başlık</label>
+                    <input type="text" asp-for="Slide.Title" name="Title" class="form-control"
+                      placeholder="Başlık">
+                    <span asp-validation-for="Slide.Title" class="text-danger"></span>
+                  </div>
+
+                  <div class="form-group">
+                    <label asp-for="Slide.Subtitle">Manşet</label>
+                    <textarea name="Subtitle" asp-for="Slide.Subtitle" class="form-control"
+                      rows="3" placeholder="Manşet"></textarea>
+                    <span asp-validation-for="Slide.Subtitle" class="text-danger"></span>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-8">
+                      <div class="form-group">
+                        <label asp-for="Slide.Url">Url</label>
+                        <input type="text" asp-for="Slide.Url" name="Url"  class="form-control"
+                          placeholder="Url">
+                        <span asp-validation-for="Slide.Url" class="text-danger"></span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-group">
+                        <label asp-for="Slide.Target">Hedef</label>
+                        <select name="Target" asp-for="Slide.Target" class="form-control">                          
+                          <option>_self</option>
+                          <option>_blank</option>
+                        </select>
+                        <span asp-validation-for="Slide.Target" class="text-danger"></span>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+                <input type="hidden" name="Id" value="@Model.Slide.Id">
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Güncelle</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>

@@ -1,0 +1,118 @@
+﻿@model Art.Models.IndexViewModel
+
+@{
+  Layout = "~/Views/Shared/_Admin/_Layout.cshtml";
+  ViewData["Title"] = "Slayt Detay";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-lg-6">
+          <h1>@ViewData["Title"]</h1>
+        </div>
+        <div class="col-lg-6 text-right">
+          <a href="/admin/slide" class="btn btn-app bg-success">
+            <i class="fas fa-list"></i> Liste
+          </a>
+        </div>
+
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <!-- /.card-header -->
+            <div class="card-body">
+
+              <div class="card-body">
+
+                <div class="form-group">
+                  <label id="Id">Id</label>
+                  <p>@Model.Slide!.Id</p>
+                </div>
+
+
+                <div class="form-group">
+                  <label id="File">Resim</label>
+                  <br>
+                  <img src="~/uploads/images/@Model.Slide!.Image" width="120" alt="">
+
+                </div>
+
+                <div class="form-group">
+                  <label id="Order">Durum</label>
+                  <div class="custom-control custom-switch">
+                              <input type="checkbox" class="custom-control-input" disabled 
+                                @(Model.Slide.Isview == true ? "checked" : "")>
+                              <label class="custom-control-label" for="@Model.Slide.Id"></label>
+                            </div>
+                </div>
+
+                <div class="form-group">
+                  <label id="Order">Sıra No</label>
+                  <p>@Model.Slide.Order</p>
+                </div>
+                <div class="form-group">
+                  <label id=Title">Başlık</label>
+                  <p>@Model.Slide.Title</p>
+                </div>
+
+                <div class="form-group">
+                  <label id="Subtitle">Manşet</label>
+                  <p>@Model.Slide.Subtitle</p>
+
+                </div>
+
+                <div class="row">
+                  <div class="col-8">
+                    <div class="form-group">
+                      <label id="Url">Url</label>
+                      <p>@Model.Slide.Url</p>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="form-group">
+                      <label id="Target">Hedef</label>
+                  <p>@Model.Slide.Target</p>
+                     
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+
+
+              <div class="card-footer">
+                <a href="/admin/slide/edit/@Model.Slide.Id" class="btn btn-app bg-purple">
+                  <i class="fas fa-edit"></i> Düzenle
+                </a>
+                <a href="/admin/slide/delete/@Model.Slide.Id" class="btn btn-app bg-danger">
+                  <i class="fas fa-trash"></i> Sil
+                </a>
+              </div>
+
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
